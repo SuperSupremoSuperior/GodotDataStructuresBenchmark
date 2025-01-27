@@ -1,0 +1,10 @@
+ea4bc82a6ad023ab7ee23ee620429895
+::res://::1737984359
+icon.svg::CompressedTexture2D::8259007146586142247::1737726705::1737726732::1::::<><>::
+teste_geral.gd::GDScript::-1::1737757889::0::1::::<>Node<>::
+Teste_Geral.tscn::PackedScene::2956224257224496080::1737757933::0::1::::<><>::res://teste_geral.gd<>uid://cbvgowoseayhp::::res://Estruturas_simples/T_Arrays.tscn<>uid://b7rg0f6j053dm::::res://Estruturas_simples/T_Dictionary.tscn
+::res://Estruturas_simples/::1737984161
+T_Arrays.gd::GDScript::-1::1737742767::0::1::::<>Node<>::
+T_Arrays.tscn::PackedScene::4886772624894933085::1737757889::0::1::::<><>::res://Estruturas_simples/T_Arrays.gd
+T_Dictionary.gd::GDScript::-1::1737759757::0::1::::<>Node<>::
+T_Dictionary.tscn::PackedScene::4667967359682601154::1737757934::0::1::::<><>::res://Estruturas_simples/T_Dictionary.gd
