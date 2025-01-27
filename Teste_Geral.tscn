@@ -1,0 +1,21 @@
+[gd_scene load_steps=4 format=3 uid="uid://bieat1lp83r1i"]
+
+[ext_resource type="Script" path="res://teste_geral.gd" id="1_muro5"]
+[ext_resource type="PackedScene" uid="uid://cbvgowoseayhp" path="res://Estruturas_simples/T_Arrays.tscn" id="2_vki81"]
+[ext_resource type="PackedScene" uid="uid://b7rg0f6j053dm" path="res://Estruturas_simples/T_Dictionary.tscn" id="3_tyxoy"]
+
+[node name="TesteGeral" type="Node"]
+script = ExtResource("1_muro5")
+Tamanho = 20000
+numero_de_testes = 50
+func_selecionada = "Arrays"
+
+[node name="T_Arrays" parent="." instance=ExtResource("2_vki81")]
+
+[node name="T_Dictionary" parent="." instance=ExtResource("3_tyxoy")]
+
+[node name="T_Vector4" type="Node" parent="."]
+
+[node name="T_PackedArrayInt64" type="Node" parent="."]
+
+[node name="T_PackedArrayInt32" type="Node" parent="."]

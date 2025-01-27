@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://b7rg0f6j053dm"]
+
+[ext_resource type="Script" path="res://Estruturas_simples/T_Dictionary.gd" id="1_8ujkj"]
+
+[node name="T_Dictionary" type="Node"]
+script = ExtResource("1_8ujkj")

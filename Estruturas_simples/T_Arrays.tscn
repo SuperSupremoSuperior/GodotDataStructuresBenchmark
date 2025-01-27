@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbvgowoseayhp"]
+
+[ext_resource type="Script" path="res://Estruturas_simples/T_Arrays.gd" id="1_buaiu"]
+
+[node name="T_Arrays" type="Node"]
+script = ExtResource("1_buaiu")
