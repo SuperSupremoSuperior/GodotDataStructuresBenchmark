@@ -1,0 +1,48 @@
+[gd_resource type="Theme" load_steps=2 format=3 uid="uid://xo5lmxdq4hyl"]
+
+[ext_resource type="StyleBox" uid="uid://cejxo5bsui686" path="res://new_style_box_flat.tres" id="1_ovehn"]
+
+[resource]
+Button/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+Button/colors/font_hover_color = Color(0.344074, 0.344076, 0.344077, 1)
+Button/colors/font_hover_pressed_color = Color(0.303233, 0.303233, 0.303233, 1)
+Button/colors/font_outline_color = Color(0, 0, 0, 1)
+Button/constants/outline_size = 12
+Button/font_sizes/font_size = 32
+Button/styles/hover = ExtResource("1_ovehn")
+Button/styles/normal = ExtResource("1_ovehn")
+Button/styles/pressed = ExtResource("1_ovehn")
+Label/colors/font_color = Color(1, 1, 1, 1)
+Label/colors/font_outline_color = Color(0, 0, 0, 1)
+Label/colors/font_shadow_color = Color(0, 0, 0, 1)
+Label/constants/line_spacing = 10
+Label/constants/outline_size = 10
+Label/constants/shadow_offset_x = 4
+Label/constants/shadow_offset_y = 4
+Label/constants/shadow_outline_size = 10
+Label/font_sizes/font_size = 32
+LineEdit/styles/focus = ExtResource("1_ovehn")
+LineEdit/styles/normal = ExtResource("1_ovehn")
+LineEdit/styles/read_only = ExtResource("1_ovehn")
+OptionButton/colors/font_color = Color(0.875, 0.875, 0.875, 1)
+OptionButton/colors/font_disabled_color = Color(0.875, 0.875, 0.875, 0.5)
+OptionButton/colors/font_focus_color = Color(0.891213, 0.785501, 0.176543, 1)
+OptionButton/colors/font_hover_color = Color(0.890196, 0.784314, 0.176471, 1)
+OptionButton/colors/font_hover_pressed_color = Color(0.535847, 0.537201, 3.85046e-07, 1)
+OptionButton/colors/font_outline_color = Color(0, 0, 0, 1)
+OptionButton/colors/font_pressed_color = Color(0.259015, 0.223706, 0.0228121, 1)
+OptionButton/constants/align_to_largest_stylebox = 10
+OptionButton/constants/arrow_margin = 5
+OptionButton/constants/h_separation = 0
+OptionButton/constants/modulate_arrow = 10000
+OptionButton/constants/outline_size = 12
+OptionButton/styles/disabled = ExtResource("1_ovehn")
+OptionButton/styles/disabled_mirrored = ExtResource("1_ovehn")
+OptionButton/styles/focus = ExtResource("1_ovehn")
+OptionButton/styles/hover = ExtResource("1_ovehn")
+OptionButton/styles/hover_mirrored = ExtResource("1_ovehn")
+OptionButton/styles/normal = ExtResource("1_ovehn")
+OptionButton/styles/normal_mirrored = ExtResource("1_ovehn")
+OptionButton/styles/pressed = ExtResource("1_ovehn")
+OptionButton/styles/pressed_mirrored = ExtResource("1_ovehn")
+RichTextLabel/styles/normal = ExtResource("1_ovehn")

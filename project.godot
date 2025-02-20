@@ -12,8 +12,18 @@ config_version=5
 
 config/name="Benchmark"
 config/features=PackedStringArray("4.3", "Forward Plus")
-config/icon="res://icon.svg"
+
+[display]
+
+window/stretch/mode="viewport"
+window/stretch/aspect="ignore"
+window/per_pixel_transparency/allowed=true
 
 [dotnet]
 
 project/assembly_name="Benchmark"
+
+[gui]
+
+theme/default_font_multichannel_signed_distance_field=true
+theme/default_font_generate_mipmaps=true

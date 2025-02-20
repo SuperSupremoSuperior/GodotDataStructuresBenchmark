@@ -1,5 +1,15 @@
 extends Node
+@onready var text_label = $Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/RichTextLabel
 
+@onready var line_edit_tamanho = $Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer/LineEdit
+@onready var line_edit_n = $Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer/LineEdit2
+
+@onready var error_label = $Control/ErrorPanel/Label
+@onready var error_panel = $Control/ErrorPanel
+
+@onready var info_panel = $Control/Info_Panel
+
+@onready var file_dialog = $FileDialog
 ### Teste para estrtuturas simples de dados
 #Array
 #Dicionario
@@ -33,24 +43,75 @@ extends Node
 #.size para encontrar o tamanho de um array, não fizemos loops, pois isso na pratica provavelmente nunca será usado
 #.resize é executado apenas uma vez para mudar o tamanho de um array vazio, assim fazendo dentro dele uma modificação direta em loop
 '''Para Dicionarios'''
-
+#Teste especial usando clear
 '''Para Vector4'''
-
+# Alguns elementos são testados dentro de um array para ver se isso é mais rapido que usar o array sozinho
+# Isso tambem por que não é nenhum pouco comum alguem usar muitos vec4 em um for, normalmente sempre sendo simplificados para um array ou dicionario
 '''Para PackedInt64Array'''
-
+# Segue mesma ideia que array porem sem erase pois isso não existe para esta estrutura
 '''Para PackedInt32Array'''
-
+# Segue mesma ideia que array porem sem erase pois isso não existe para esta estrutura
 func _ready():
-	match func_selecionada:
-		"Arrays": 
-			t_arrays.start(Tamanho, numero_de_testes)
-		"Dicionarios":
-			t_dictionary.start(Tamanho, numero_de_testes)
+	text_label.append_text("Resultados aqui \n ")
+
+func on_buttom_press() -> void:
+	if line_edit_n.text.is_valid_int() == false:
+		error_panel.visible = true
+		error_label.text = "O valor deve ser um inteiro"
+		return
+	if line_edit_tamanho.text.is_valid_int() == false:
+		error_panel.visible = true
+		error_label.text = "O valor deve ser um inteiro"
+		return
+		
+	Tamanho = int(line_edit_tamanho.text) 
+	
+	numero_de_testes = int(line_edit_n.text)
+	
+	match $Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer/OptionButton.text:
+		"Array": 
+			t_arrays._start(Tamanho, numero_de_testes)
+		"Dicionario":
+			t_dictionary._start(Tamanho, numero_de_testes)
 		"Vector4":
-			t_vector_4.start(Tamanho, numero_de_testes)
-		"PackedArraysInt64":
-			t_packed_array_int_64.start(Tamanho, numero_de_testes)
-		"PackedArraysInt32":
-			t_packed_array_int_32.start(Tamanho, numero_de_testes)
+			t_vector_4._start(Tamanho, numero_de_testes)
+		"PackedInt64Array":
+			t_packed_array_int_64._start(Tamanho, numero_de_testes)
+		"PackedInt32Array":
+			t_packed_array_int_32._start(Tamanho, numero_de_testes)
+	
 
 	print("Estes Foram os resultados para um teste simples com a estrutura ", func_selecionada)
+
+func on_exit_error_panel_pressed() -> void:
+	error_panel.visible = false
+
+func on_exit_info_panel_pressed() -> void:
+	info_panel.visible = false
+	
+func on_enter_info_panel_pressed() -> void:
+	info_panel.visible = true
+
+func on_clear_pressed() -> void:
+	text_label.clear()
+	
+func on_save_pressed() -> void:
+	var file_dialog = FileDialog.new()
+	add_child(file_dialog)
+	file_dialog.file_mode = FileDialog.FILE_MODE_SAVE_FILE
+	file_dialog.add_filter("*.txt ; Text Files")
+	file_dialog.access = FileDialog.ACCESS_FILESYSTEM
+
+	file_dialog.file_selected.connect(func(path):
+		var file = FileAccess.open(path, FileAccess.WRITE)
+		if file:
+			file.store_string(text_label.get_parsed_text())  # Obtém o texto renderizado
+			file.close()
+			print("Arquivo salvo em:", path)
+		else:
+			print("Erro ao salvar arquivo!")
+		
+		file_dialog.queue_free()
+	)
+
+	file_dialog.popup_centered_clamped()

@@ -1,13 +1,51 @@
-[gd_scene load_steps=4 format=3 uid="uid://bieat1lp83r1i"]
+[gd_scene load_steps=16 format=3 uid="uid://bieat1lp83r1i"]
 
 [ext_resource type="Script" path="res://teste_geral.gd" id="1_muro5"]
 [ext_resource type="PackedScene" uid="uid://cbvgowoseayhp" path="res://Estruturas_simples/T_Arrays.tscn" id="2_vki81"]
 [ext_resource type="PackedScene" uid="uid://b7rg0f6j053dm" path="res://Estruturas_simples/T_Dictionary.tscn" id="3_tyxoy"]
+[ext_resource type="Script" path="res://Estruturas_simples/t_vector_4.gd" id="4_qv7m7"]
+[ext_resource type="Script" path="res://t_packed_array_int_64.gd" id="5_hq6jt"]
+[ext_resource type="Script" path="res://t_packed_array_int_32.gd" id="6_g0jmc"]
+[ext_resource type="Shader" path="res://Teste_Geral.gdshader" id="7_mkn1r"]
+[ext_resource type="Theme" uid="uid://xo5lmxdq4hyl" path="res://new_theme.tres" id="8_igcii"]
+
+[sub_resource type="Gradient" id="Gradient_h2ual"]
+offsets = PackedFloat32Array(0, 0.633166)
+colors = PackedColorArray(0.318636, 0.517576, 0.990026, 1, 2.02149e-06, 0.297844, 0.731907, 1)
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_32bbc"]
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_x2d6t"]
+seamless = true
+seamless_blend_skirt = 1.0
+color_ramp = SubResource("Gradient_h2ual")
+noise = SubResource("FastNoiseLite_32bbc")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_ptr4c"]
+shader = ExtResource("7_mkn1r")
+shader_parameter/scale = 1.0
+shader_parameter/speed = 0.157
+shader_parameter/noise = SubResource("NoiseTexture2D_x2d6t")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_l0eta"]
+bg_color = Color(0.320575, 0.267059, 0.213084, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_jlgxf"]
+bg_color = Color(0.0823529, 0.0823529, 0.0823529, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_03rd2"]
+bg_color = Color(0.262745, 0.262745, 0.262745, 0.760784)
+border_width_left = 6
+border_width_top = 6
+border_width_right = 6
+border_width_bottom = 6
+border_color = Color(0, 0, 0, 1)
+border_blend = true
 
 [node name="TesteGeral" type="Node"]
 script = ExtResource("1_muro5")
-Tamanho = 20000
-numero_de_testes = 50
+Tamanho = 2000
+numero_de_testes = 10
 func_selecionada = "Arrays"
 
 [node name="T_Arrays" parent="." instance=ExtResource("2_vki81")]
@@ -15,7 +53,315 @@ func_selecionada = "Arrays"
 [node name="T_Dictionary" parent="." instance=ExtResource("3_tyxoy")]
 
 [node name="T_Vector4" type="Node" parent="."]
+script = ExtResource("4_qv7m7")
 
 [node name="T_PackedArrayInt64" type="Node" parent="."]
+script = ExtResource("5_hq6jt")
 
 [node name="T_PackedArrayInt32" type="Node" parent="."]
+script = ExtResource("6_g0jmc")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Panel" type="Panel" parent="Control"]
+texture_filter = 1
+material = SubResource("ShaderMaterial_ptr4c")
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Panel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Panel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Label4" type="Label" parent="Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+theme = ExtResource("8_igcii")
+theme_override_font_sizes/font_size = 32
+text = "Teste de performance de estruturas"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label5" type="Label" parent="Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_igcii")
+theme_override_font_sizes/font_size = 16
+text = "Nota: tamanho da estrura é multiplicado por 4 para funcionar em vector4"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_igcii")
+theme_override_font_sizes/font_size = 32
+text = "Tipo de estrutura a ser testada"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="OptionButton" type="OptionButton" parent="Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_igcii")
+theme_override_font_sizes/font_size = 32
+alignment = 1
+selected = 0
+item_count = 5
+popup/item_0/text = "Array"
+popup/item_1/text = "Dicionario"
+popup/item_1/id = 1
+popup/item_2/text = "Vector4"
+popup/item_2/id = 2
+popup/item_3/text = "PackedInt64Array"
+popup/item_3/id = 3
+popup/item_4/text = "PackedInt32Array"
+popup/item_4/id = 4
+
+[node name="Label2" type="Label" parent="Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_igcii")
+theme_override_font_sizes/font_size = 32
+text = "Tamanho da Estrutura"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineEdit" type="LineEdit" parent="Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_igcii")
+theme_override_font_sizes/font_size = 32
+
+[node name="Label3" type="Label" parent="Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_igcii")
+theme_override_font_sizes/font_size = 32
+text = "Número de testes"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineEdit2" type="LineEdit" parent="Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_igcii")
+theme_override_font_sizes/font_size = 32
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control/Panel/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 580)
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("8_igcii")
+scroll_following = true
+threaded = true
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/Panel/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 64
+alignment = 1
+
+[node name="Button" type="Button" parent="Control/Panel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme = ExtResource("8_igcii")
+theme_override_font_sizes/font_size = 32
+text = "Testar"
+
+[node name="B_salvar" type="Button" parent="Control/Panel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme = ExtResource("8_igcii")
+theme_override_font_sizes/font_size = 32
+text = "Salvar"
+
+[node name="B_clear" type="Button" parent="Control/Panel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme = ExtResource("8_igcii")
+theme_override_font_sizes/font_size = 32
+text = "Limpar"
+
+[node name="B_info" type="Button" parent="Control/Panel/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 10
+theme = ExtResource("8_igcii")
+theme_override_font_sizes/font_size = 32
+text = "Sobre"
+
+[node name="ErrorPanel" type="Panel" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -20.0
+offset_right = 200.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control/ErrorPanel"]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -0.5
+offset_top = -11.1667
+offset_right = 0.5
+offset_bottom = 11.1667
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Button" type="Button" parent="Control/ErrorPanel"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -8.0
+offset_bottom = 8.0
+grow_horizontal = 0
+text = "X"
+
+[node name="Info_Panel" type="MarginContainer" parent="Control"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 32
+theme_override_constants/margin_top = 32
+theme_override_constants/margin_right = 32
+theme_override_constants/margin_bottom = 32
+
+[node name="InfoPanel" type="Panel" parent="Control/Info_Panel"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/Info_Panel/InfoPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="Control/Info_Panel/InfoPanel/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_igcii")
+text = "Sobre"
+horizontal_alignment = 1
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/Info_Panel/InfoPanel/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 15
+theme_override_constants/margin_bottom = 16
+
+[node name="Text" type="RichTextLabel" parent="Control/Info_Panel/InfoPanel/VBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme = ExtResource("8_igcii")
+theme_override_colors/table_border = Color(0, 0, 0, 1)
+theme_override_font_sizes/normal_font_size = 24
+theme_override_styles/fill = SubResource("StyleBoxFlat_l0eta")
+theme_override_styles/background = SubResource("StyleBoxFlat_jlgxf")
+theme_override_styles/normal = SubResource("StyleBoxFlat_03rd2")
+text = "Este programa visa ajudar a testes rapidos em estruturas de dados na engine godot 4.3
+O programa é open source, e pode ser usado sem dar creditos, segue as regras de open source da classe M.I.T.
+O programa inclui:
+Teste para Array:
+- append, insert, inserção/modificação direta (usando \"array\"[posição]) 
+- append array
+- procura usando find e has
+- sortição com sort, e outro usando um sort com o array invertido
+- get_direto (variavel = array[posição])
+- pop_back, erase
+- 2 testes especiais como teste para um uso do size e usando um resize antes de fazer um loop de inserção direta
+
+Para Dicionarios:
+- teste equivalente a um append (dicionario[item] = item
+- modificação direta, sendo a mesma coisa que o \"append\" so que com o dicionario ja estruturado
+- procura com find_key, has, busca direta pelo valor (if dic[valor] == valor...)
+-get direto (var = dic[valor])
+- com comando get
+- Erase
+- 1 caso espceial para clear que so é executado 1 vez
+
+Para Vector4: (Nota este é o mais diferente de todos pois é um vetor com tamanho limitado)
+- set direto (usando apenas um vetor4 e mudando seus valores em um loop
+- set direto em um array, criando vector4 dentro de um array, a inserção do vector4 é direta no array
+- get direto, pega valor x, y, z e w em sequencia substituindo uma var
+- get direto com array, transfere o que foi gerado no set direto com array em um array normal
+
+Para \"PackedInt64Array\" e \"PackedInt32Array\":
+- são excessialmente mesmo testes que usados para array, apenas faltando o erase que não existe em nestas estruturas.
+
+Os teste são feitos da seguinte forma, roda-se um loop com o tamanho da estrutura colocada pelo usuario multiplicado por 4 para funcionar com mesmo volume no Vector4.
+O sistema tem um loop maior que é decidido pelo usuario. e loops menores que executar o 4 vezes tamanho da estrutura que faz um for in range(4*tamanho), ou seja vai de 0 ate 4*tamanho-1.
+
+Qualquer duvida com o codigo basta acessa-lo usando o editor Godot 4.3
+
+
+"
+
+[node name="Button" type="Button" parent="Control/Info_Panel/InfoPanel"]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -32.0
+offset_bottom = 32.0
+grow_horizontal = 0
+size_flags_horizontal = 8
+size_flags_vertical = 0
+text = "X"
+
+[node name="FileDialog" type="FileDialog" parent="."]
+mode = 3
+position = Vector2i(0, 36)
+size = Vector2i(500, 500)
+use_native_dialog = true
+
+[connection signal="pressed" from="Control/Panel/VBoxContainer/HBoxContainer2/Button" to="." method="on_buttom_press"]
+[connection signal="pressed" from="Control/Panel/VBoxContainer/HBoxContainer2/B_salvar" to="." method="on_save_pressed"]
+[connection signal="pressed" from="Control/Panel/VBoxContainer/HBoxContainer2/B_clear" to="." method="on_clear_pressed"]
+[connection signal="pressed" from="Control/Panel/VBoxContainer/HBoxContainer2/B_info" to="." method="on_enter_info_panel_pressed"]
+[connection signal="pressed" from="Control/ErrorPanel/Button" to="." method="on_exit_error_panel_pressed"]
+[connection signal="pressed" from="Control/Info_Panel/InfoPanel/Button" to="." method="on_exit_info_panel_pressed"]
