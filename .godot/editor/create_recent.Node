@@ -1,3 +1,6 @@
+Node
+HBoxContainer
+TileMapLayer
 FileDialog
 MarginContainer
 Label
@@ -5,9 +8,7 @@ VBoxContainer
 RichTextLabel
 Button
 Panel
-HBoxContainer
 TextEdit
 LineEdit
 OptionButton
 Control
-Node

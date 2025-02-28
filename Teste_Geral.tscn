@@ -1,13 +1,21 @@
-[gd_scene load_steps=16 format=3 uid="uid://bieat1lp83r1i"]
+[gd_scene load_steps=26 format=3 uid="uid://bieat1lp83r1i"]
 
 [ext_resource type="Script" path="res://teste_geral.gd" id="1_muro5"]
 [ext_resource type="PackedScene" uid="uid://cbvgowoseayhp" path="res://Estruturas_simples/T_Arrays.tscn" id="2_vki81"]
 [ext_resource type="PackedScene" uid="uid://b7rg0f6j053dm" path="res://Estruturas_simples/T_Dictionary.tscn" id="3_tyxoy"]
 [ext_resource type="Script" path="res://Estruturas_simples/t_vector_4.gd" id="4_qv7m7"]
-[ext_resource type="Script" path="res://t_packed_array_int_64.gd" id="5_hq6jt"]
-[ext_resource type="Script" path="res://t_packed_array_int_32.gd" id="6_g0jmc"]
+[ext_resource type="Script" path="res://Estruturas_complexas/t_packed_array_int_64.gd" id="5_hq6jt"]
+[ext_resource type="Script" path="res://Estruturas_complexas/t_packed_array_int_32.gd" id="6_g0jmc"]
+[ext_resource type="Script" path="res://Estruturas_complexas/t_packed_float_32_array.gd" id="7_ht8kw"]
 [ext_resource type="Shader" path="res://Teste_Geral.gdshader" id="7_mkn1r"]
 [ext_resource type="Theme" uid="uid://xo5lmxdq4hyl" path="res://new_theme.tres" id="8_igcii"]
+[ext_resource type="Script" path="res://Estruturas_complexas/t_packed_float_64_array.gd" id="8_pvkam"]
+[ext_resource type="Script" path="res://Estruturas_complexas/t_2d_array.gd" id="9_0rdb1"]
+[ext_resource type="Script" path="res://Estruturas_complexas/t_tilemap.gd" id="10_0x8hh"]
+[ext_resource type="Script" path="res://C#/TArrays.cs" id="10_anay1"]
+[ext_resource type="Texture2D" uid="uid://d4k1ry8elk0iq" path="res://Atlas.png" id="10_pogkl"]
+[ext_resource type="Script" path="res://C#/TDictionary.cs" id="11_11mcd"]
+[ext_resource type="Script" path="res://C#/TVector4.cs" id="12_86c7j"]
 
 [sub_resource type="Gradient" id="Gradient_h2ual"]
 offsets = PackedFloat32Array(0, 0.633166)
@@ -42,6 +50,13 @@ border_width_bottom = 6
 border_color = Color(0, 0, 0, 1)
 border_blend = true
 
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_3tnt5"]
+texture = ExtResource("10_pogkl")
+
+[sub_resource type="TileSet" id="TileSet_rl3g1"]
+tile_size = Vector2i(1, 1)
+sources/0 = SubResource("TileSetAtlasSource_3tnt5")
+
 [node name="TesteGeral" type="Node"]
 script = ExtResource("1_muro5")
 Tamanho = 2000
@@ -60,6 +75,29 @@ script = ExtResource("5_hq6jt")
 
 [node name="T_PackedArrayInt32" type="Node" parent="."]
 script = ExtResource("6_g0jmc")
+
+[node name="T_PackedFloat32Array" type="Node" parent="."]
+script = ExtResource("7_ht8kw")
+
+[node name="T_PackedFloat64Array" type="Node" parent="."]
+script = ExtResource("8_pvkam")
+
+[node name="T_2DArray" type="Node" parent="."]
+script = ExtResource("9_0rdb1")
+
+[node name="T_C" type="Node" parent="."]
+
+[node name="T_Arrays" type="Node" parent="T_C" node_paths=PackedStringArray("textLabel")]
+script = ExtResource("10_anay1")
+textLabel = NodePath("../../Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/RichTextLabel")
+
+[node name="T_Dictionary" type="Node" parent="T_C" node_paths=PackedStringArray("textLabel")]
+script = ExtResource("11_11mcd")
+textLabel = NodePath("../../Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/RichTextLabel")
+
+[node name="T_Vector4" type="Node" parent="T_C" node_paths=PackedStringArray("textLabel")]
+script = ExtResource("12_86c7j")
+textLabel = NodePath("../../Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer2/RichTextLabel")
 
 [node name="Control" type="Control" parent="."]
 layout_mode = 3
@@ -121,13 +159,28 @@ text = "Tipo de estrutura a ser testada"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="OptionButton" type="OptionButton" parent="Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="OptionButton2" type="OptionButton" parent="Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 theme = ExtResource("8_igcii")
 theme_override_font_sizes/font_size = 32
 alignment = 1
 selected = 0
-item_count = 5
+item_count = 2
+popup/item_0/text = "GDScript"
+popup/item_0/id = 8
+popup/item_1/text = "C#"
+popup/item_1/id = 1
+
+[node name="OptionButton" type="OptionButton" parent="Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_igcii")
+theme_override_font_sizes/font_size = 32
+alignment = 1
+selected = 0
+item_count = 9
 popup/item_0/text = "Array"
 popup/item_1/text = "Dicionario"
 popup/item_1/id = 1
@@ -137,6 +190,14 @@ popup/item_3/text = "PackedInt64Array"
 popup/item_3/id = 3
 popup/item_4/text = "PackedInt32Array"
 popup/item_4/id = 4
+popup/item_5/text = "PackedFloat64Array"
+popup/item_5/id = 5
+popup/item_6/text = "PackedFloat32Array"
+popup/item_6/id = 6
+popup/item_7/text = "Array2D"
+popup/item_7/id = 7
+popup/item_8/text = "TileMap"
+popup/item_8/id = 8
 
 [node name="Label2" type="Label" parent="Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
@@ -160,6 +221,19 @@ horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="LineEdit2" type="LineEdit" parent="Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_igcii")
+theme_override_font_sizes/font_size = 32
+
+[node name="Label6" type="Label" parent="Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("8_igcii")
+theme_override_font_sizes/font_size = 32
+text = "Número de subtestes"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="LineEdit3" type="LineEdit" parent="Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 theme = ExtResource("8_igcii")
 theme_override_font_sizes/font_size = 32
@@ -352,6 +426,10 @@ grow_horizontal = 0
 size_flags_horizontal = 8
 size_flags_vertical = 0
 text = "X"
+
+[node name="T_tilemap" type="TileMapLayer" parent="."]
+tile_set = SubResource("TileSet_rl3g1")
+script = ExtResource("10_0x8hh")
 
 [node name="FileDialog" type="FileDialog" parent="."]
 mode = 3
