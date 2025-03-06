@@ -48,7 +48,7 @@ extends Node
 @onready var C_t_dictionary = $T_C/T_Dictionary
 @onready var C_t_vector_4 = $T_C/T_Vector4
 
-
+var Testes_text: Array
 
 ###Notas Adicionais alguns elementos nos testes foram feitos como algo extra que não precisão estar diretamente ligados com loops
 '''Para Arrays:'''
@@ -65,6 +65,8 @@ extends Node
 # Segue mesma ideia que array porem sem erase pois isso não existe para esta estrutura
 func _ready():
 	text_label.append_text("Resultados aqui \n ")
+	for i in range($Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/OptionButton.item_count):
+		Testes_text.append($Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/OptionButton.get_item_text(i))
 
 func on_buttom_press() -> void:
 	if line_edit_n.text.is_valid_int() == false:
@@ -165,3 +167,19 @@ func on_save_pressed() -> void:
 	)
 
 	file_dialog.popup_centered_clamped()
+
+func _on_option_button_2_item_selected(index):
+	var lang = $Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/OptionButton2.get_item_text(index)
+	if lang == "C#":
+		var aux = 0
+		$Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/OptionButton.clear()
+		for i in Testes_text:
+			$Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/OptionButton.add_item(i)
+			aux += 1
+			if aux == 3:
+				break
+			
+	else:
+		$Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/OptionButton.clear()
+		for i in Testes_text:
+			$Control/Panel/VBoxContainer/HBoxContainer/VBoxContainer/HBoxContainer/OptionButton.add_item(i)
