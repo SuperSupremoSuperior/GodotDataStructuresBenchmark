@@ -28,20 +28,20 @@ func _start(Tamanho: int, numero_de_testes: int):
 	text_label.append_text("Valores finais em ms, apos "+str(numero_de_testes)+" testes com tamanho total "+str(Tamanho_final) +" para
 	append "+ str(append)+" com media de "+ str(append/numero_de_testes)+"
 	insert "+ str(insert)+" com media de "+ str(insert/numero_de_testes)+"
-	find "+ str(find)+" com media de "+ str(find/numero_de_testes)+"
-	has "+ str(has)+" com media de "+ str(has/numero_de_testes)+"
+	find "+ str(find)+" com media de "+ str(find/numero_de_testes)+ "
+	has "+ str(has)+" com media de "+ str(has/numero_de_testes)+ "
 	modificação direta "+ str(modificacao_direta)+" com media de "+ str(modificacao_direta/numero_de_testes)+"
 	sort "+ str(sort)+" com media de "+ str(sort/numero_de_testes)+"
-	sort_invertido "+ str(sort_invertido)+" com media de "+ str(sort_invertido/numero_de_testes)+"
-	get_direto "+ str(get_direto)+" com media de "+ str(get_direto/numero_de_testes)+"
-	append_array "+ str(append_array)+" com media de "+ str(append_array/numero_de_testes)+"
-	erase Não existe em PackedArray"+
-	"pop_back" + str(pop_back)+" com media de "+ str(pop_back/numero_de_testes)+"
+	sort_invertido "+ str(sort_invertido)+" com media de "+ str(sort_invertido/numero_de_testes)+ "
+	get_direto "+ str(get_direto)+" com media de "+ str(get_direto/numero_de_testes)+ "
+	append_array "+ str(append_array)+" com media de "+ str(append_array/numero_de_testes)+ "
+	erase Não existe em PackedArray\n"+
+	"pop_back "+ str(pop_back)+" com media de "+ str(pop_back/numero_de_testes)+ "
 	--- Casos especiais --- 
 	size: sem loop
 	resize: usando loop apenas para set direto
-	size "+ str(size)+" com media de "+ str(size/numero_de_testes)+"
-	resize "+ str(resize)+" com media de "+ str(resize/numero_de_testes)+"\n"
+	size "+ str(size)+" com media de "+ str(size/numero_de_testes)+ "
+	resize "+ str(resize)+" com media de "+ str(resize/numero_de_testes)+ ""
 	)
 
 func _teste_array(N: int, teste: int) -> void:
@@ -69,6 +69,14 @@ func _teste_array(N: int, teste: int) -> void:
 	end = Time.get_ticks_msec()
 	text_label.append_text("Teste .find levou "+ str(end - start)+ "ms, teste "+ str(teste)+"\n")
 	find += (end - start)
+	
+	# .has
+	start = Time.get_ticks_msec()
+	for i in range(N):
+		array.has(i)
+	end = Time.get_ticks_msec()
+	text_label.append_text("Teste .find levou "+ str(end - start)+ "ms, teste "+ str(teste)+"\n")
+	has += (end - start)
 	
 	# Modificação direta
 	start = Time.get_ticks_msec()

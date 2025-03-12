@@ -64,7 +64,7 @@ public partial class TArrays : Node
 			array.Add(i);
 		stopwatch.Stop();
 		append += stopwatch.ElapsedMilliseconds;
-		AppendText($"Teste .append com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n");
+		textLabel.Text += $"Teste .append com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n";
 
 		// Insert
 		array.Clear();
@@ -73,7 +73,7 @@ public partial class TArrays : Node
 			array.Insert(i, i);
 		stopwatch.Stop();
 		insert += stopwatch.ElapsedMilliseconds;
-		AppendText($"Teste .insert com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n");
+		textLabel.Text += $"Teste .insert com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n";
 
 		// Find
 		stopwatch.Restart();
@@ -81,7 +81,7 @@ public partial class TArrays : Node
 			array.IndexOf(i);
 		stopwatch.Stop();
 		find += stopwatch.ElapsedMilliseconds;
-		AppendText($"Teste .find com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n");
+		textLabel.Text += $"Teste .find com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n";
 
 		// Has
 		stopwatch.Restart();
@@ -89,7 +89,7 @@ public partial class TArrays : Node
 			array.Contains(i);
 		stopwatch.Stop();
 		has += stopwatch.ElapsedMilliseconds;
-		AppendText($"Teste .has com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n");
+		textLabel.Text += $"Teste .has com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n";
 
 		// Modificação direta
 		stopwatch.Restart();
@@ -97,14 +97,14 @@ public partial class TArrays : Node
 			array[i] = i;
 		stopwatch.Stop();
 		modificacaoDireta += stopwatch.ElapsedMilliseconds;
-		AppendText($"Teste de modificação direta com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n");
+		textLabel.Text += $"Teste de modificação direta com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n";
 
 		// Sort
 		stopwatch.Restart();
 		array.Sort();
 		stopwatch.Stop();
 		sort += stopwatch.ElapsedMilliseconds;
-		AppendText($"Teste .sort com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n");
+		textLabel.Text += $"Teste .sort com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n";
 
 		// Sort Invertido
 		array.Reverse();
@@ -112,7 +112,7 @@ public partial class TArrays : Node
 		array.Sort();
 		stopwatch.Stop();
 		sortInvertido += stopwatch.ElapsedMilliseconds;
-		AppendText($"Teste .sort com array invertido levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n");
+		textLabel.Text += $"Teste .sort com array invertido levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n";
 
 		// Get direto
 		List<int> arrayParaGet = new List<int>(new int[N]);
@@ -121,7 +121,7 @@ public partial class TArrays : Node
 			arrayParaGet[i] = array[i];
 		stopwatch.Stop();
 		getDireto += stopwatch.ElapsedMilliseconds;
-		AppendText($"Teste de get direta com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n");
+		textLabel.Text += $"Teste de get direta com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n";
 
 		// Append array
 		List<int> arrayParaAppendArray = new List<int>();
@@ -129,7 +129,7 @@ public partial class TArrays : Node
 		arrayParaAppendArray.AddRange(array);
 		stopwatch.Stop();
 		appendArray += stopwatch.ElapsedMilliseconds;
-		AppendText($"Teste de append_array com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n");
+		textLabel.Text += $"Teste de append_array com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n";
 
 		// Erase
 		stopwatch.Restart();
@@ -137,9 +137,45 @@ public partial class TArrays : Node
 			array.Remove(i);
 		stopwatch.Stop();
 		erase += stopwatch.ElapsedMilliseconds;
-		AppendText($"Teste .erase com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n");
+		textLabel.Text += $"Teste .erase com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n";
 
+		// .size
+
+		stopwatch.Restart();
+		int arraySize = array.Count;
+		stopwatch.Stop();
+
+		textLabel.Text += $"Teste .size com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n";
+		size += stopwatch.ElapsedMilliseconds;
+
+		// .resize com adição direta
+		array = new List<int>(N);
+
+		stopwatch.Restart();
+		for (int i = 0; i < N; i++)
+		{
+			array.Add(i);
+		}
+		stopwatch.Stop();
+
+		textLabel.Text += $"Teste .resize com array levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n";
+		resize += stopwatch.ElapsedMilliseconds;
 		await ToSignal(GetTree(), "process_frame");
+		
+		// pop_back equivalente (remoção do último elemento)
+		var list = new System.Collections.Generic.List<int>(array);
+		
+		stopwatch.Restart();
+		if (list.Count > 0)
+		{
+			list.RemoveAt(list.Count - 1);
+		}
+		stopwatch.Stop();
+		
+		textLabel.Text += $"Teste pop_back levou {stopwatch.ElapsedMilliseconds}ms, n° do teste {teste}\n";
+		popBack += stopwatch.ElapsedMilliseconds;
+		
+		
 	}
 
 	private void AppendText(string text)

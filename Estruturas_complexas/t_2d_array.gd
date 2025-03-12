@@ -12,9 +12,7 @@ var modificacao_direta = 0
 var sort = 0
 var sort_invertido  = 0
 var get_direto = 0
-var append_array = 0
 var erase = 0
-var pop_back = 0
 var size = 0
 var resize = 0
 
@@ -36,9 +34,7 @@ func _start(Tamanho: int, numero_de_testes: int, tamanho_subteste: int):
 		"sort " + str(sort) + " com média de " + str(sort / numero_de_testes) + "\n" +
 		"sort_invertido " + str(sort_invertido) + " com média de " + str(sort_invertido / numero_de_testes) + "\n" +
 		"get_direto " + str(get_direto) + " com média de " + str(get_direto / numero_de_testes) + "\n" +
-		"append_array " + str(append_array) + " com média de " + str(append_array / numero_de_testes) + "\n" +
 		"erase " + str(erase) + " com média de " + str(erase / numero_de_testes) + "\n" +
-		"pop_back " + str(pop_back) + " com média de " + str(pop_back / numero_de_testes) + "\n" +
 		"size " + str(size) + " com média de " + str(size / numero_de_testes) + "\n" +
 		"resize " + str(resize) + " com média de " + str(resize / numero_de_testes) + "\n"
 	)
@@ -92,6 +88,22 @@ func _teste_array2d(N: int, tamanho_subteste: int, teste: int) -> void:
 	end = Time.get_ticks_msec()
 	modificacao_direta += (end - start)
 	text_label.append_text("Teste de modificação direta com Array2D levou " + str(end - start) + "ms, n° do teste " + str(teste) + "\n")
+	# get direto
+	var array_para_get: Array = []
+	for i in range(N):
+		var sub_array: Array = []
+		for j in range(tamanho_subteste):
+			sub_array.append(N+1)
+		array_para_get.append(sub_array)
+
+	start = Time.get_ticks_msec()
+	for i in range(N):
+		for j in range(min(tamanho_subteste, array2d[i].size())):
+			array_para_get[i][j] = array2d[i][j]
+	end = Time.get_ticks_msec()
+	text_label.append_text("Teste de get direta com Array2D levou " + str(end - start) + "ms, n° do teste" + str(teste) + "\n")
+	get_direto += (end - start)
+	
 	#sort
 	start = Time.get_ticks_msec()
 	for i in range(N):
@@ -116,4 +128,28 @@ func _teste_array2d(N: int, tamanho_subteste: int, teste: int) -> void:
 	size += (end - start)
 	text_label.append_text("Teste .size com Array2D levou " + str(end - start) + "ms, n° do teste " + str(teste) + "\n")
 	
+	# .erase
+	start = Time.get_ticks_msec()
+	for i in range(N):
+		for j in range(min(tamanho_subteste, array2d[i].size())):
+			array2d[i].erase(j)
+	end = Time.get_ticks_msec()
+	text_label.append_text("Teste .erase com Array2D levou " + str(end - start) + "ms, n° do teste" + str(teste) + "\n")
+	erase += (end - start)
+	
+	#resize com 
+	array2d.clear()
+	for i in range(N):
+		array2d.append([])
+		array2d[i].resize(tamanho_subteste)
+
+	start = Time.get_ticks_msec()
+	for i in range(N):
+		for j in range(tamanho_subteste):
+			array2d[i][j] = j
+	end = Time.get_ticks_msec()
+	text_label.append_text("Teste .resize com Array2D levou " + str(end - start) + "ms, n° do teste" + str(teste) + "\n")
+	resize += (end - start)
+	
 	await get_tree().process_frame
+	

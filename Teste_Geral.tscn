@@ -231,7 +231,7 @@ theme_override_font_sizes/font_size = 32
 layout_mode = 2
 theme = ExtResource("8_igcii")
 theme_override_font_sizes/font_size = 32
-text = "Número de subtestes"
+text = "Tamanho de subtestes"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -409,13 +409,18 @@ Para Vector4: (Nota este é o mais diferente de todos pois é um vetor com taman
 Para \"PackedInt64Array\", \"PackedInt32Array\", \"PackedFloat64Array\" e \"PackedFloat32Array\":
 - são excessialmente os mesmos testes que usados para array, apenas faltando o erase que não existe em nestas estruturas.
 
+Para Array2D:
+- Segue a ideia do Array, porem com alguns metodos a menos, isso porque uma implementação disso seria muito complicado alem de ser dificil de encontrar onde isso poderia ser utilizado.
+
 Para Tilemap:
 - Usa-se o build-in do Godot, \"TileMapLayer\", e faz o seguintes testes
 - 1 para fazer algo semelhante a um append com o \"set_cell\"
 - 1 para teste de algo semelhante a um get direto com \"get_cell_atlas_coords\"
 
 PARA VERSÃO EM C#:
-- Teste equivalente para Array, Dicionario, e Vector4, os outros não são testados pois estas estruturas tecnicamente não existem nesta linguagem
+- Teste equivalente para Array, Dicionario.
+- Vector4 é feito para funcionar de uma forma semelhante a do Gdscript, porem é testado mais metodos
+- Os outros não são testados pois estas estruturas tecnicamente não existem nesta linguagem
 
 TESTAGEM:
 Os teste são feitos da seguinte forma, roda-se um loop com o tamanho da estrutura colocada pelo usuario multiplicado por 4 para funcionar com mesmo volume no Vector4.
